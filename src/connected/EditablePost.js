@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
-import uuidv1 from 'uuid/v1';
+import { connect } from 'react-redux';
+import Form from 'react-bootstrap';
 
-class NewPostForm extends Component {
+class EditablePost extends Component {
   state = {
     title: '',
-    text: ''
+    body: '',
+    isEditing: true
   };
 
   handleChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value
     });
-    console.log(this.state.title);
-    console.log(this.state.text);
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
-    let newPost = {
+    this.props.dispatch({
+      type: 'EDIT_POST',
       title: this.state.title,
-      text: this.state.text,
-      id: uuidv1()
-    };
-    this.props.createPost(newPost);
+      body: this.state.body,
+      isEditing: false,
+      id: this.props.post.id
+    });
+    evt.target.reset();
     this.setState({
       title: '',
-      text: ''
+      body: ''
     });
   };
 
   render() {
+    // debugger;
     return (
       <div>
-        <h3>Create New Post:</h3>
-        <form onSubmit={this.handleSubmit}>
+        <h3>Edit Post:</h3>
+        <form className="form-group" onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="title">Title:</label>
             <input
@@ -42,23 +45,32 @@ class NewPostForm extends Component {
               name="title"
               value={this.state.title}
               onChange={this.handleChange}
+              className="form-control"
             />
           </div>
           <div>
             <label htmlFor="body">Body</label>
             <input
-              type="text"
+              type="body"
               id="body"
               name="body"
-              value={this.state.text}
+              value={this.state.body}
               onChange={this.handleChange}
+              className="form-control"
             />
           </div>
-          <button>Submit</button>
+          <button>Update</button>
         </form>
       </div>
     );
   }
 }
 
-export default NewPostForm;
+const mapStateToProps = function(reduxState) {
+  return {
+    // state comes from the Redux store
+    posts: reduxState.posts
+  };
+};
+
+export default connect(mapStateToProps)(EditablePost);
