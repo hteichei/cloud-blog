@@ -20,7 +20,8 @@ class Post extends Component {
     this.props.dispatch({
       type: 'EDIT_POST',
       title: this.state.title,
-      body: this.state.body
+      body: this.state.body,
+      id: this.props.id
     });
     evt.target.reset();
     this.setState({
@@ -52,10 +53,7 @@ class Post extends Component {
       return (
         <div>
           <h3>Edit Post:</h3>
-          <form
-            className="form-group"
-            onSubmit={() => this.handleSubmit(this.props.id)}
-          >
+          <form className="form-group" onSubmit={this.handleSubmit}>
             <div>
               <label htmlFor="title">Title:</label>
               <input

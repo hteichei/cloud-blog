@@ -5,14 +5,7 @@ const INITIAL_STATE = {
 export default function rootReducer(state = INITIAL_STATE, action) {
   if (action.type === 'CREATE_POST') {
     return {
-      ...state,
-      posts: [
-        ...state.posts,
-        {
-          title: action.title,
-          body: action.body
-        }
-      ]
+      posts: [...state.posts, action.post]
     };
   } else if (action.type === 'REMOVE_POST') {
     const updatedPosts = state.posts.filter(post => post.id !== action.id);

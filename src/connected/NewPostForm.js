@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import './NewPostForm.css';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap';
+import { postPosts } from '../actionCreators';
 
 class NewPostForm extends Component {
   state = {
     title: '',
-    text: ''
+    body: ''
   };
 
   handleChange = evt => {
@@ -17,15 +18,11 @@ class NewPostForm extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    this.props.dispatch({
-      type: 'CREATE_POST',
-      title: this.state.title,
-      body: this.state.text
-    });
+    this.props.postPosts(this.state);
     evt.target.reset();
     this.setState({
       title: '',
-      text: ''
+      body: ''
     });
   };
 
@@ -37,7 +34,7 @@ class NewPostForm extends Component {
           <div>
             <label htmlFor="title">Title:</label>
             <input
-              type="text"
+              type="body"
               id="title"
               name="title"
               value={this.state.title}
@@ -46,12 +43,12 @@ class NewPostForm extends Component {
             />
           </div>
           <div>
-            <label htmlFor="text">Body</label>
+            <label htmlFor="body">Body</label>
             <input
-              type="text"
-              id="text"
-              name="text"
-              value={this.state.text}
+              type="body"
+              id="body"
+              name="body"
+              value={this.state.body}
               onChange={this.handleChange}
               className="form-control"
             />
@@ -63,4 +60,7 @@ class NewPostForm extends Component {
   }
 }
 
-export default connect()(NewPostForm);
+export default connect(
+  null,
+  { postPosts }
+)(NewPostForm);
