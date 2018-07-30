@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap';
-import EditablePost from '../connected/EditablePost';
+import { connect } from 'react-redux';
 
 class Post extends Component {
   state = {
@@ -20,8 +20,7 @@ class Post extends Component {
     this.props.dispatch({
       type: 'EDIT_POST',
       title: this.state.title,
-      body: this.state.body,
-      id: this.props.id
+      body: this.state.body
     });
     evt.target.reset();
     this.setState({
@@ -53,7 +52,10 @@ class Post extends Component {
       return (
         <div>
           <h3>Edit Post:</h3>
-          <form className="form-group" onSubmit={this.handleSubmit}>
+          <form
+            className="form-group"
+            onSubmit={() => this.handleSubmit(this.props.id)}
+          >
             <div>
               <label htmlFor="title">Title:</label>
               <input
@@ -84,4 +86,11 @@ class Post extends Component {
   }
 }
 
-export default Post;
+const mapStateToProps = function(reduxState) {
+  return {
+    // state comes from the Redux store
+    posts: reduxState.posts
+  };
+};
+
+export default connect(mapStateToProps)(Post);

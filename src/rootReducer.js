@@ -23,8 +23,7 @@ export default function rootReducer(state = INITIAL_STATE, action) {
         return {
           ...post,
           title: action.title,
-          body: action.body,
-          id: action.id
+          body: action.body
         };
       }
       return post;
