@@ -11,17 +11,17 @@ export default function rootReducer(state = INITIAL_STATE, action) {
     const updatedPosts = state.posts.filter(post => post.id !== action.id);
     return { ...state, posts: updatedPosts };
   } else if (action.type === 'EDIT_POST') {
-    const updatedPost = state.posts.map(post => {
-      if (post.id === action.id) {
+    const updatedPosts = state.posts.map(post => {
+      if (post.id === action.updatedP.id) {
         return {
           ...post,
-          title: action.title,
-          body: action.body
+          title: action.updatedP.title,
+          body: action.updatedP.body
         };
       }
       return post;
     });
-    return { ...state, posts: updatedPost };
+    return { ...state, posts: updatedPosts };
   } else if (action.type === 'FETCH_POSTS') {
     return { ...state, posts: action.posts };
   }

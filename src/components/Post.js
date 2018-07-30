@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { updatePosts } from '../actionCreators';
 
 class Post extends Component {
   state = {
@@ -17,11 +18,9 @@ class Post extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    this.props.dispatch({
-      type: 'EDIT_POST',
+    this.props.updatePosts(this.props.id, {
       title: this.state.title,
-      body: this.state.body,
-      id: this.props.id
+      body: this.state.body
     });
     evt.target.reset();
     this.setState({
@@ -84,11 +83,14 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = function(reduxState) {
-  return {
-    // state comes from the Redux store
-    posts: reduxState.posts
-  };
-};
+// const mapStateToProps = function(reduxState) {
+//   return {
+//     // state comes from the Redux store
+//     posts: reduxState.posts
+//   };
+// };
 
-export default connect(mapStateToProps)(Post);
+export default connect(
+  null,
+  { updatePosts }
+)(Post);

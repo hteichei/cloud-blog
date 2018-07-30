@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Post from '../components/Post';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actionCreators';
+import { fetchPosts, removePosts } from '../actionCreators';
 
 class PostList extends Component {
   componentDidMount() {
@@ -9,10 +9,7 @@ class PostList extends Component {
   }
 
   handleDelete = id => {
-    this.props.dispatch({
-      type: 'REMOVE_POST',
-      id
-    });
+    this.props.removePosts(id);
   };
 
   render() {
@@ -44,5 +41,5 @@ const mapStateToProps = function(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { fetchPosts }
+  { fetchPosts, removePosts }
 )(PostList);
