@@ -6,8 +6,7 @@ import Form from 'react-bootstrap';
 class NewPostForm extends Component {
   state = {
     title: '',
-    text: '',
-    isEditing: false
+    text: ''
   };
 
   handleChange = evt => {
@@ -21,8 +20,7 @@ class NewPostForm extends Component {
     this.props.dispatch({
       type: 'CREATE_POST',
       title: this.state.title,
-      body: this.state.text,
-      isEditing: false
+      body: this.state.text
     });
     evt.target.reset();
     this.setState({

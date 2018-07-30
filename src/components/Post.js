@@ -21,13 +21,13 @@ class Post extends Component {
       type: 'EDIT_POST',
       title: this.state.title,
       body: this.state.body,
-      // isEditing: false,
-      id: this.props.key
+      id: this.props.id
     });
     evt.target.reset();
     this.setState({
       title: '',
-      body: ''
+      body: '',
+      isEditing: false
     });
   };
 

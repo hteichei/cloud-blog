@@ -1,14 +1,5 @@
-import uuidv1 from 'uuid/v1';
-
 const INITIAL_STATE = {
-  posts: [
-    {
-      title: 'First Title',
-      body: 'First Post',
-      // isEditing: false,
-      id: uuidv1()
-    }
-  ]
+  posts: []
 };
 
 export default function rootReducer(state = INITIAL_STATE, action) {
@@ -19,26 +10,13 @@ export default function rootReducer(state = INITIAL_STATE, action) {
         ...state.posts,
         {
           title: action.title,
-          body: action.body,
-          // isEditing: action.isEditing,
-          id: uuidv1()
+          body: action.body
         }
       ]
     };
   } else if (action.type === 'REMOVE_POST') {
     const updatedPosts = state.posts.filter(post => post.id !== action.id);
     return { ...state, posts: updatedPosts };
-    // } else if (action.type === 'TOGGLE_EDIT') {
-    //   const toggledPost = state.posts.map(post => {
-    //     if (post.id === action.id) {
-    //       return {
-    //         ...post,
-    //         isEditing: !post.isEditing
-    //       };
-    //     }
-    //     return post;
-    //   });
-    //   return { ...state, posts: toggledPost };
   } else if (action.type === 'EDIT_POST') {
     const updatedPost = state.posts.map(post => {
       if (post.id === action.id) {
@@ -46,7 +24,6 @@ export default function rootReducer(state = INITIAL_STATE, action) {
           ...post,
           title: action.title,
           body: action.body,
-          // isEditing: action.isEditing,
           id: action.id
         };
       }
