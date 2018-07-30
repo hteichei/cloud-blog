@@ -18,13 +18,6 @@ class PostList extends Component {
     });
   };
 
-  // handleUpdate = id => {
-  //   this.props.dispatch({
-  //     type: 'EDIT_POST',
-  //     id
-  //   });
-  // };
-
   render() {
     const posts = this.props.posts.map(post => {
       if (post.isEditing === false) {
